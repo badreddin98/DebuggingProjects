@@ -1,0 +1,101 @@
+/* Bug 1: Inline styles instead of CSS classes */
+<div style="color: blue; font-size: 16px;">This is a paragraph</div>
+
+/* Bug 2: Non-responsive units */
+.container {
+    width: 800px;
+    margin: 0 auto;
+}
+
+/* Bug 3: Overly specific selectors */
+body div.container ul li a {
+    color: blue;
+}
+
+/* Bug 4: Missing vendor prefixes */
+.box {
+    transform: rotate(45deg);
+    transition: all 0.3s;
+}
+
+/* Bug 5: Improper box model */
+.element {
+    width: 100%;
+    padding: 20px;
+    border: 1px solid black;
+    box-sizing: content-box;
+}
+
+/* Bug 6: Non-semantic color values */
+.text {
+    color: #FF0000;
+    background-color: #00FF00;
+}
+
+/* Bug 7: Missing media queries */
+.header {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Bug 8: Improper z-index usage */
+.modal {
+    position: fixed;
+    z-index: 1;
+}
+
+.overlay {
+    position: fixed;
+    z-index: 2;
+}
+
+/* Bug 9: Missing fallback fonts */
+body {
+    font-family: 'Custom Font', sans-serif;
+}
+
+/* Bug 10: Non-accessible color contrast */
+.text {
+    color: #CCCCCC;
+    background-color: #FFFFFF;
+}
+
+/* Example of correct CSS */
+:root {
+    --primary-color: #007bff;
+    --secondary-color: #6c757d;
+    --font-family: system-ui, -apple-system, sans-serif;
+}
+
+.container {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.button {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: darken(var(--primary-color), 10%);
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 0 0.5rem;
+    }
+    
+    .button {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+} 

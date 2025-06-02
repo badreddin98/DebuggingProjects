@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Debugging Exercise</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Bug 1: Missing alt attribute -->
+    <img src="profile.jpg">
+
+    <!-- Bug 2: Improper heading hierarchy -->
+    <h1>Main Title</h1>
+    <h3>Subtitle</h3>
+    <h2>Another Section</h2>
+    <h4>Subsection</h4>
+
+    <!-- Bug 3: Non-semantic div usage -->
+    <div class="header">
+        <div class="nav">
+            <div class="menu-item">Home</div>
+            <div class="menu-item">About</div>
+            <div class="menu-item">Contact</div>
+        </div>
+    </div>
+
+    <!-- Bug 4: Missing form labels -->
+    <form>
+        <input type="text" name="username">
+        <input type="password" name="password">
+        <button type="submit">Login</button>
+    </form>
+
+    <!-- Bug 5: Improper table structure -->
+    <table>
+        <tr>
+            <td>Header 1</td>
+            <td>Header 2</td>
+        </tr>
+        <tr>
+            <td>Data 1</td>
+            <td>Data 2</td>
+        </tr>
+    </table>
+
+    <!-- Bug 6: Missing ARIA attributes -->
+    <div class="modal">
+        <div class="modal-content">
+            <h2>Important Message</h2>
+            <p>This is a modal dialog.</p>
+        </div>
+    </div>
+
+    <!-- Bug 7: Improper list usage -->
+    <div class="menu">
+        <span>Item 1</span>
+        <span>Item 2</span>
+        <span>Item 3</span>
+    </div>
+
+    <!-- Bug 8: Missing form validation -->
+    <form>
+        <input type="email" name="email">
+        <input type="tel" name="phone">
+        <button type="submit">Submit</button>
+    </form>
+
+    <!-- Bug 9: Improper link usage -->
+    <div class="button" onclick="window.location='page.html'">
+        Click here
+    </div>
+
+    <!-- Bug 10: Missing meta description -->
+    <head>
+        <title>My Page</title>
+    </head>
+
+    <!-- Example of correct HTML -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <article>
+            <h1>Main Title</h1>
+            <h2>Subtitle</h2>
+            <p>This is a properly structured paragraph.</p>
+            <img src="image.jpg" alt="Descriptive text">
+        </article>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 My Website</p>
+    </footer>
+</body>
+</html> 
