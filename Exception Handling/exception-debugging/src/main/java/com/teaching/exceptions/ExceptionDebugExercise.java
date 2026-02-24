@@ -22,28 +22,29 @@ public class ExceptionDebugExercise {
     }
 
     // Bug 2: This method should parse an integer from a string
-    public int parseInteger(String input)  {
+    public int parseInteger(String input) {
         try {
-            return Integer.parseInt(input);// Bug: No exception handling for invalid input
-        }catch (NumberFormatException e){
+            return Integer.parseInt(input);
+        } catch (NumberFormatException e) {
             System.out.println("Invalid number");
-        }return 0;
+            throw e; // important: rethrow so the test sees it
+        }
     }
 
     // Bug 3: This method should divide two numbers
     public double divide(int a, int b) {
-        try {
-            return (double) a / b; // Bug: No division by zero check
-        }catch (ArithmeticException e){
-            System.err.println("divide by zero not allowed");
-        }return 0;
+            if (b == 0) {
+                throw new ArithmeticException("divide by zero not allowed");
+            }
+                return (double) a / b;
     }
 
     // Bug 4: This method should get an element from a list
     public String getElement(int index) {
+
         if (index < 0 || index >= data.size()) {// Bug: No bounds checking
             System.out.println("getElement error");
-            return null;
+            throw new IndexOutOfBoundsException("Element index out of range");
         }
         return data.get(index);
     }
@@ -52,11 +53,12 @@ public class ExceptionDebugExercise {
 
     // Bug 5: This method should update a count in the map
     public void updateCount(String key) {
+        int count = counts.get(key); // Bug: No null check
        try {
-           int count = counts.get(key); // Bug: No null check
            counts.put(key, count + 1);
        }catch (NullPointerException e){
            System.out.println("Key not found, initializing count");
+           counts.put(key, 1);
        }
     }
 
@@ -64,17 +66,16 @@ public class ExceptionDebugExercise {
     public void createDirectory(String path) {
         try {
             File dir = new File(path);
-            dir.mkdir();  // Bug: No check if directory already exists
 
-            if (dir.exists()){
+            if (dir.exists()) {
                 System.out.println("Directory already exists");
-            }else {
+            } else {
                 dir.mkdir();
             }
-        }catch (Exception e){
+
+        } catch (Exception e) {
             System.out.println("Error creating directory");
         }
-
     }
 
     // Bug 7: This method should convert a string to a date
@@ -90,48 +91,34 @@ public class ExceptionDebugExercise {
 
     // Bug 8: This method should copy a file
     // I add exception IoException so it can handle File input
-    public void copyFile(String source, String destination) {
-         try {
-             FileInputStream in = new FileInputStream(source);
-             FileOutputStream out = new FileOutputStream(destination);
+    public void copyFile(String source, String destination) throws IOException {
+        try (FileInputStream in = new FileInputStream(source);
+             FileOutputStream out = new FileOutputStream(destination)) {
 
-             byte[] buffer = new byte[1024];
-             int length;
-             while ((length = in.read(buffer)) > 0) {
-                 out.write(buffer, 0, length);
-             }
-             in.close();
-             out.close();
-             // Bug: No resource cleanup, no exception handling
-         }catch ( FileNotFoundException e ){
-             System.out.println("File not found");
+            byte[] buffer = new byte[1024];
+            int length;
 
-         }catch (IOException e){
-             System.out.println("File I/O Error");
-         }
+            while ((length = in.read(buffer)) != -1) {
+                out.write(buffer, 0, length);
+            }
+        }
     }
 
     // Bug 9: This method should validate an email address
     public boolean validateEmail(String email) {
-        try {
-            return email.contains("@"); // Bug: Incomplete email validation
-        }catch (NullPointerException e){
-            System.out.println("Incorrect email format");
-        }return false;
+        if (email == null) return false;
+        int at = email.indexOf('@');
+        int dot = email.indexOf(".com");
+        return at > 0 && dot > at + 1;
     }
+
 
     // Bug 10: This method should process a list of numbers
     public List<Integer> processNumbers(List<String> numbers) {
         List<Integer> result = new ArrayList<>();
-
-            for (String num : numbers) {
-                try {
-                    result.add(Integer.parseInt(num));
-                }catch (NumberFormatException e){
-                    System.out.println("Invalid number");
-                }
-            }
+        for (String num : numbers) {
+            result.add(Integer.parseInt(num)); // auto throws
+        }
         return result;
-
-    } // Bug: No exception handling for invalid numbers
-} 
+    }
+} // Bug: No exception handling for invalid numbers
